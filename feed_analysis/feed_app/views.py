@@ -5,6 +5,10 @@ from django.contrib.auth import login, authenticate #add this
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import loginform
+import pymongo
+client = pymongo.MongoClient('localhost', 27017)
+db = client['farm']
+collection = db['login']
 
 # Create your views here.
 
@@ -23,8 +27,11 @@ def mlogin(request):
 	if request.method == "POST":
 		form = loginform(request.POST)
 		if form.is_valid():
-			if form.cleaned_data['uname']=='user1':
-				if form.cleaned_data['password']=='user1':
+			res = collection.find_one({'role':'man'})
+			uname = res['uname']
+			passw = res['password']
+			if form.cleaned_data['uname']==uname:
+				if form.cleaned_data['password']==passw:
 					return render(request,'feed_app/mpage.html',{'user' : form.cleaned_data['uname']})
 	else:
 		form = loginform()
