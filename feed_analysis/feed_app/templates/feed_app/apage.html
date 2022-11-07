@@ -8,5 +8,17 @@
 </head>
 <body>
     <h1>Welcome {{user}}</h1>
+    {% csrf_token %} 
+      <form name="form" method="post">
+         
+        <label> Select Feed Type </label>  
+        <select>  
+            {% for i in types %}
+        <option value = {{i}}> {{i}}   
+        </option> 
+            {%endfor%}
+        </select>  
+        <button type="submit"> Update formula </button>
+        </form> 
 </body>
 </html>
