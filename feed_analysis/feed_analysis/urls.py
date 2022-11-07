@@ -23,5 +23,5 @@ path('admin/', admin.site.urls),
     path('mlogin/',views.mlogin),
     path('alogin/',views.alogin),
     path('mpage/',views.mpage),
-    path('apage/',views.apage)
+    path('apage/<uname>/',views.apage)
 ]
