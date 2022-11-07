@@ -16,14 +16,22 @@ def home(request):
 
 
 def mpage(request):
-    return render(request,'feed_app/mpage.html',{'user':'Sorry you have enters the page without login'})
+	if request.method == 'POST':
+		print('heree')
+		r = request.GET['dropdown']
+		print(r)
+		return HttpResponse("sucess")
+	else:
+		return render(request,'feed_app/mpage.html',{'user':'Sorry you have enters the page without login'})
 
 def apage(request):
 	if request.method == "POST":
 		print('here')
-		r = request.GET['form']
+		r = request.GET['dropdown']
 		print(r)
-	return render(request,'feed_app/apage.html',{'user':'Sorry you have enters the page without login'})
+		return HttpResponse("sucess")
+	else:
+		return render(request,'feed_app/apage.html',{'user':'Sorry you have enters the page without login'})
 
 
 def mlogin(request):
@@ -36,7 +44,13 @@ def mlogin(request):
 			passw = res['password']
 			if form.cleaned_data['uname']==uname:
 				if form.cleaned_data['password']==passw:
-					return render(request,'feed_app/mpage.html',{'user' : form.cleaned_data['uname']})
+					collection = db['formula']
+					res = collection.find({},{'_id':0})
+					l=[]
+					for i in res:
+						for j in i:
+							l.append(j)
+					return render(request,'feed_app/mpage.html',{'user' : form.cleaned_data['uname'],'feeds':l})
 	else:
 		form = loginform()
 		return render(request, "feed_app/mlogin.html",{'form':form})
