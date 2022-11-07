@@ -24,14 +24,30 @@ def mpage(request):
 	else:
 		return render(request,'feed_app/mpage.html',{'user':'Sorry you have enters the page without login'})
 
-def apage(request):
+def apage(request,uname):
 	if request.method == "POST":
 		print('here')
-		r = request.GET['dropdown']
-		print(r)
+		r = request.POST['dropdown']
+		d={}
+		collection = db['formula']
+		res = collection.find({},{'_id':0})
+		for i in range(res.count(True)):
+			for j in res[i]:
+				d[j]={}
+				for k in res[i][j]:
+					if i==r:
+						d[j][k]=res[i][j][k]
+		print(d)
 		return HttpResponse("sucess")
 	else:
-		return render(request,'feed_app/apage.html',{'user':'Sorry you have enters the page without login'})
+		collection = db['formula']
+		res = collection.find({},{'_id':0})
+		l=[]
+		for i in res:
+			for j in i:
+				l.append(j)
+		print(uname)
+		return render(request,'feed_app/apage.html',{'user':uname,'types':l})
 
 
 def mlogin(request):
@@ -44,13 +60,7 @@ def mlogin(request):
 			passw = res['password']
 			if form.cleaned_data['uname']==uname:
 				if form.cleaned_data['password']==passw:
-					collection = db['formula']
-					res = collection.find({},{'_id':0})
-					l=[]
-					for i in res:
-						for j in i:
-							l.append(j)
-					return render(request,'feed_app/mpage.html',{'user' : form.cleaned_data['uname'],'feeds':l})
+					return redirect('/mpage/'+uname+'/')  
 	else:
 		form = loginform()
 		return render(request, "feed_app/mlogin.html",{'form':form})
@@ -66,20 +76,7 @@ def alogin(request):
 			passw = res['password']
 			if form.cleaned_data['uname']==uname:
 				if form.cleaned_data['password']==passw:
-					collection = db['formula']
-					d = {}
-					res = collection.find({},{'_id':0})
-					l=[]
-					for i in res:
-						for j in i:
-							l.append(j)
-					# for i in range(res.count(True)):
-					# 	for j in res[i]:
-					# 		d[j]={}
-					# 		for k in res[i][j]:
-					# 			d[j][k]=res[i][j][k]
-					# print(d)
-					return render(request,'feed_app/apage.html',{'user' : form.cleaned_data['uname'],'types':l})
+					return redirect('/apage/'+uname+'/')
 	else:
 		form = loginform()
 		return render(request, "feed_app/alogin.html",{'form':form})
