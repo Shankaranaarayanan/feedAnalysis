@@ -40,20 +40,19 @@ def mpage(request,uname):
 		q = request.POST['quantity']
 		print(r,q)
 		collection1 = db['stock']
-		stock = collection1.find({},{'_id':0})
-		s=[]
+		stock = collection1.find_one({},{'_id':0})
+		s={}
 		for i in stock:
-			for j in i:
-				s.append(j)
+			s[i]=stock[i]
 		print(s)	
 		return HttpResponse(r)
 	else:
 		collection = db['formula']
-		res = collection.find({},{'_id':0})
+		res = collection.find({},{'_id':0,'type':1})
 		f=[]
 		for i in res:
 			for j in i:
-				f.append(j)
+				f.append(i[j])
 		print(f)
 		return render(request,'feed_app/mpage.html',{'user':uname,'feeds':f})
 
