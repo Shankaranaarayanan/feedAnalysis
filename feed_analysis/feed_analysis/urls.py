@@ -22,6 +22,7 @@ path('admin/', admin.site.urls),
     path('',views.home),
     path('mlogin/',views.mlogin),
     path('alogin/',views.alogin),
-    path('mpage/',views.mpage),
-    path('apage/<uname>/',views.apage)
+    path('mpage/<uname>/',views.mpage),
+    path('apage/<uname>/',views.apage),
+    path('update/<type>/',views.update)
 ]
