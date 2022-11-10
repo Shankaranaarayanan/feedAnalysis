@@ -1,4 +1,3 @@
-from bson import is_valid
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate #add this
@@ -6,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import loginform
 import pymongo
+
 client = pymongo.MongoClient('localhost', 27017)
 db = client['farm']
 
@@ -78,15 +78,15 @@ def apage(request,uname):
 
 def mlogin(request):
 	if request.method == "POST":
-		form = loginform(request.POST)
-		if form.is_valid():
-			collection = db['login']
-			res = collection.find_one({'role':'man'})
-			uname = res['uname']
-			passw = res['password']
-			if form.cleaned_data['uname']==uname:
-				if form.cleaned_data['password']==passw:
-					return redirect('/mpage/'+uname+'/')  
+		u = request.POST['uname']
+		p = request.POST['pwd']
+		collection = db['login']
+		res = collection.find_one({'role':'man'})
+		uname = res['uname']
+		passw = res['password']
+		if u==uname:
+			if p==passw:
+				return redirect('/mpage/'+uname+'/')  
 	else:
 		form = loginform()
 		return render(request, "feed_app/mlogin.html",{'form':form})
@@ -94,15 +94,15 @@ def mlogin(request):
 
 def alogin(request):
 	if request.method == "POST":
-		form = loginform(request.POST)
-		if form.is_valid():
-			collection = db['login']
-			res = collection.find_one({'role':'admin'})
-			uname = res['uname']
-			passw = res['password']
-			if form.cleaned_data['uname']==uname:
-				if form.cleaned_data['password']==passw:
-					return redirect('/apage/'+uname+'/')
+		u = request.POST['uname']
+		p = request.POST['pwd']
+		collection = db['login']
+		res = collection.find_one({'role':'admin'})
+		uname = res['uname']
+		passw = res['password']
+		if u==uname:
+			if p==passw:
+				return redirect('/apage/'+uname+'/')
 	else:
 		form = loginform()
 		return render(request, "feed_app/alogin.html",{'form':form})

@@ -10,7 +10,10 @@
     Admin Login<br><br>
     <form method="post">
         {%csrf_token%}
-        {{form}}
+        <label for="uname">User  Name :</label>
+        <input type="text" id="uname" name="uname">
+        <label for="pwd">User  Password :</label>
+        <input type="password" id="pwd" name="pwd">
         <button type="submit">Login</button>
     </form>
 
