@@ -20,9 +20,10 @@ import feed_app.views as views
 urlpatterns = [
 path('admin/', admin.site.urls),
     path('',views.home),
-    path('mlogin/',views.mlogin),
-    path('alogin/',views.alogin),
-    path('mpage/<uname>/',views.mpage),
-    path('apage/<uname>/',views.apage),
-    path('update/<type>/',views.update)
+    path('login/',views.login),
+    path('mpage/',views.mpage),
+    path('apage/',views.apage),
+    path('update/<type>/',views.update),
+    path('stack/stack/',views.viewStock),
+    path('logout/',views.logot)
 ]
