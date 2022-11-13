@@ -1,40 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
-<style>
-    .feed-type {
-        position: relative;
-        display: inline-block;
-        background-color:rgb(179, 179, 179);
-        padding: 2%;
-        border-radius: 1%;
-      }
-
-</style>
 <body>
-  {%csrf_token%}
-    <h1>{{msg}}</h1>
-    {% if user.is_authenticated %}
-    <div class="feed-type">
-        <form method="post">
-            
-          <label>Choose a Feed : </label>
-          <select feed="" id="cars" name="dropdown">
-            {% for i in feeds %}
-            <option value={{i}}>{{i}}</option>
-            {%endfor%}
-          </select><br>
-          <label for="amt">Quantity :</label>
-          <input type="number" id="quantity" name="quantity" value="10 tonne">
-          <br>
-          <button type="submit"> Submit </button>
-        </form>
-        </div>
-    {% endif %}
+  <h1>Manager Home Page</h1>
+<a href="/viewStockRecord">
+  <h2>Click here to view stock record</h2>
+</a>
+<a href="/viewStock">
+  <h2>Click here to view current stock</h2>
+</a>
+<a href="/addProduction">
+  <h2>Click here to add newely produced items</h2>
+</a>
 </body>
 </html>

@@ -24,6 +24,8 @@ path('admin/', admin.site.urls),
     path('mpage/',views.mpage),
     path('apage/',views.apage),
     path('update/<type>/',views.update),
-    path('stack/stack/',views.viewStock),
-    path('logout/',views.logot)
+    path('viewStockRecord/',views.viewStockRecord),
+    path('viewStock/',views.viewStock),
+    path('logout/',views.logot),
+    path('addProduction/',views.feedProduction)
 ]

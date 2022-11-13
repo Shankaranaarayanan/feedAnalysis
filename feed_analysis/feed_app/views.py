@@ -28,8 +28,25 @@ def viewStock(request):
 	s={}
 	for i in stock:
 		s[i]=stock[i]
-	col = db['stockrecord']
-	return render(request,'feed_app/stock.html')
+	return render(request,'feed_app/stock.html',{'stock':s})
+
+def viewStockRecord(request):
+	collection1 = db['stockrecord']
+	stock = collection1.find({},{'_id':0})
+	s={}
+	l=[]
+	for i in stock[0]:
+		l.append(i)
+	ind = 0
+	for i in stock:
+		s[ind] = {}
+		for j in i:
+			# print(j)
+			# print(i)
+			s[ind][j]=i[j]
+		ind+=1
+	# print(s,l)
+	return render(request,'feed_app/stockRecord.html',{'head':l,'body':s})
 
 
 
@@ -52,7 +69,7 @@ def update(request,type):
 		return render(request,'feed_app/update.html',{'data':d})
 
 @login_required
-def mpage(request):
+def feedProduction(request):
 	if request.method == 'POST':
 		print('heree')
 		r = request.POST['dropdown']
@@ -69,14 +86,18 @@ def mpage(request):
 		formula = {}
 		for i in frm:
 			formula = (frm[i])
-		for i in formula:
-			print(i,formula[i])
+		# for i in formula:
+		# 	print(i,formula[i])
+		# 	print(i,s[i])
 		col1 = db['stockrecord']
 		now = datetime.now()
 		dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 		col1.insert_one({'date time':dt_string,'qty':q,'feedType':r})
-
-		return HttpResponse(formula)
+		for i in s:
+			col1.update_one({'date time':dt_string},{"$set":{i:float(s[i])-float(int(q)*formula[i])}})
+		for i in s:
+			collection1.update_one({},{"$set":{i:float(s[i])-float(int(q)*formula[i])}})
+		return HttpResponse('sucess')
 	else:
 		collection = db['formula']
 		res = collection.find({},{'_id':0,'type':1})
@@ -85,8 +106,10 @@ def mpage(request):
 			for j in i:
 				f.append(i[j])
 		print(f)
-		return render(request,'feed_app/mpage.html',{'feeds':f})
+		return render(request,'feed_app/feedProduced.html',{'feeds':f})
 
+def mpage(request):
+	return render(request,'feed_app/mpage.html')
 def apage(request):
 	if request.method == "POST":
 		print('here')
