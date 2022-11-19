@@ -61,6 +61,7 @@ body {
     top: 0;
     z-index: 2;
     border: #17384e;
+    text-transform: uppercase;
   }
   body {
     padding-bottom: 90vh;
