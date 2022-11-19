@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'feed_app/indexstyle.css' %}">
     <title>Website</title>
 </head>
 <body>
-    <h1>Welcome to your poultry farms website</h1><br><br>
-    <a href="/login"><h4>Click here to login</h4></a><br><br>
+    <h1 class="centered">Welcome to your poultry farms website</h1><br><br>
+    <a class="link" href="/login"><h4>Click here to login</h4></a><br><br>
 </body>
 </html>

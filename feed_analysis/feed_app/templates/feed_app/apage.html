@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'feed_app/admin.css' %}">
     <title>Admin</title>
 </head>
 <body>
+    <div class="change_formula">
     <h1>Welcome {{user}}</h1>
     {% csrf_token %} 
       <form name="form" method="post">
-         
-        <label> Select Feed Type </label>  
+      <div class="i1">  
+        <label> Select Feed Type : </label>  
         <select name="dropdown">  
             {% for i in types %}
         <option value = {{i}}> {{i}}   
         </option> 
             {%endfor%}
-        </select>  
+        </select> 
+    </div> 
         <button type="submit"> Update formula </button>
-        </form> 
+        </form>
+    </div> 
 </body>
 </html>

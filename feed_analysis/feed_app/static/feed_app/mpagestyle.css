@@ -1,0 +1,81 @@
+body {
+    background: linear-gradient(-45deg, #17384e, #257880, #8dd49d, #429455);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+    font-family:Avenir
+ 
+      
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+ 
+    50% {
+        background-position: 100% 50%;
+    }
+ 
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.choices{
+    background-color: rgb(0, 0, 0);
+    opacity: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 600px;
+    width: 600px;
+    padding: 25px;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+    
+}
+
+.choices h1{
+    margin: 0 0 20px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    
+}
+
+#opt1, #opt2, #opt3, #opt4{
+    position: relative;
+  
+    
+}
+#opt1 h2, #opt2 h2, #opt3 h2, #opt4 h2{
+    background-color:#005995 ;
+    font-size: 30px;
+    padding: 20px;
+    color: #fff;
+    margin-top: 40px;
+    font-weight: 400;
+    text-align: center;
+    border-radius: 2px;
+    border-radius: 10px;
+    border-color: #005995;
+    border-style: solid;
+}
+
+.opts{
+    color: #fff;
+}
+
+a:link { text-decoration: none; 
+font-weight: 400;}
+a:visited { text-decoration: none; 
+font-weight: 400;}
+#opt1 h2:hover,#opt2 h2:hover, #opt3 h2:hover, #opt4 h2:hover{ text-decoration: none; 
+font-weight: 700;}
+a:active { text-decoration: underline; 
+font-weight: 700;}
+

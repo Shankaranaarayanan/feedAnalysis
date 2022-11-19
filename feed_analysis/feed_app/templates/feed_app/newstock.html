@@ -16,12 +16,12 @@
     
     {% if user.is_authenticated %}
     <div class="feed-type">
-      <h1>Feed to be produced :</h1>
+      <h1>Update stock:</h1>
         <form method="post">
           <div class="i1">
-          <label >Choose a Feed : </label>
-          <select feed="" id="feed" name="dropdown">
-            {% for i in feeds %}
+          <label >Choose an Ing : </label>
+          <select ing="" id="feed" name="dropdown">
+            {% for i in ing %}
             <option value={{i}}>{{i}}</option>
             {%endfor%}
           </select><br>

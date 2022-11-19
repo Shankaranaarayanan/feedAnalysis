@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/b-2.3.2/b-html5-2.3.2/fc-4.2.1/fh-3.3.1/r-2.4.0/sb-1.4.0/sp-2.1.0/sl-1.5.0/datatables.min.css"/>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="{% static 'feed_app/stockrecordstyle.css' %}">
     <title>Document</title>
 </head>
 <body>
-  <table id="myTable">
+  <table class="table-bordered id="myTable">
     <thead>
       {% for i in head %}
         <td>{{i}}</td>

@@ -27,5 +27,6 @@ path('admin/', admin.site.urls),
     path('viewStockRecord/',views.viewStockRecord),
     path('viewStock/',views.viewStock),
     path('logout/',views.logot),
-    path('addProduction/',views.feedProduction)
+    path('addProduction/',views.feedProduction),
+    path('newstock/',views.newstock)
 ]

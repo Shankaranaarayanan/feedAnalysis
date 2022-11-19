@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import loginform
+import numpy as np
 import pymongo
 from datetime import datetime
 
@@ -86,6 +87,23 @@ def feedProduction(request):
 		formula = {}
 		for i in frm:
 			formula = (frm[i])
+		f = col.find({},{'_id':0})
+		d ={}
+		ind=0
+		for i in f:
+			d[ind] = i['ing']
+			ind+=1
+		lim = list(np.zeros(len(d[0])))
+		# print(lim)
+		for i in d:
+			ind=0
+			for j in d[i]:
+				# print(d[i][j])
+				if int(lim[ind])<int(d[i][j]):
+					lim[ind] = d[i][j]
+				ind+=1
+		for i in range(len(lim)):
+			lim[i]=lim[i]*7
 		# for i in formula:
 		# 	print(i,formula[i])
 		# 	print(i,s[i])
@@ -97,7 +115,18 @@ def feedProduction(request):
 			col1.update_one({'date time':dt_string},{"$set":{i:float(s[i])-float(int(q)*formula[i])}})
 		for i in s:
 			collection1.update_one({},{"$set":{i:float(s[i])-float(int(q)*formula[i])}})
-		return HttpResponse('sucess')
+		stock = collection1.find_one({},{'_id':0})
+		l={}
+		ind=0
+		for i in stock:
+			print(i,lim[ind])
+			if float(stock[i])<float(lim[ind]):
+				l[i]=stock[i]
+			ind+=1
+		print(l)
+		return mpage(request,l)
+		
+
 	else:
 		collection = db['formula']
 		res = collection.find({},{'_id':0,'type':1})
@@ -108,8 +137,10 @@ def feedProduction(request):
 		print(f)
 		return render(request,'feed_app/feedProduced.html',{'feeds':f})
 
-def mpage(request):
-	return render(request,'feed_app/mpage.html')
+
+def mpage(request,msg={}):
+	return render(request,'feed_app/mpage.html',{'msg':msg})
+
 def apage(request):
 	if request.method == "POST":
 		print('here')
@@ -166,3 +197,39 @@ def login(request):
 # 	else:
 # 		form = loginform()
 # 		return render(request, "feed_app/alogin.html",{'form':form})
+
+
+
+
+def newstock(request):
+	if request.method == 'POST':
+		print('heree')
+		r = request.POST['dropdown']
+		q = request.POST['quantity']
+		print(r,q)
+		collection = db['stock']
+		stock = collection.find_one({},{'_id':0})
+		
+		v=0
+		for i in stock:
+			if i==r:
+				v+=stock[i]
+			
+		v=int(v)
+		q=int(q)
+		collection.update_one({},{"$set": {r:v+q}})
+		return mpage(request)
+
+
+
+
+
+
+	else:
+		collection = db['stock']
+		res = collection.find({},{'_id':0})
+		f=[]
+		for i in res:
+			for j in i:
+				f.append(j)
+		return render(request,'feed_app/newstock.html',{'ing':f})
