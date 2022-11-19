@@ -81,5 +81,30 @@ font-weight: 700;}
 
 
 .notif{
-    background-color: aquamarine;
+    background-color: #8baeb1;
+    margin-right: 80%;
+    padding:10px;
+    padding-left: 10px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 100;
+    
+}
+
+.notif p{
+    font-size: 25px;
+    font-weight: 100;
+}
+
+#logout {
+    text-align: end;
+    font-size: 20px;
+    bottom: 0%;
+    position: fixed;
+    left:95%;
+  
+}
+
+#logout:hover {
+    text-decoration: none;
 }

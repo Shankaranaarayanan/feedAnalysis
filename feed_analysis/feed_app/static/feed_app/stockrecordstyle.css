@@ -7,6 +7,7 @@ body {
   animation: gradient 15s ease infinite;
   height: 100vh;
   font-weight: 700;
+  padding-bottom: 90vh;
 }
 @keyframes gradient {
   0% {
@@ -28,11 +29,39 @@ body {
     width: 100%;
     border-collapse: collapse;
     border-bottom: 1px solid rgb(0, 0, 0);
+    overflow-y: auto;
   }
-  .table-bordered td, th {
+  .table-bordered td{
     border: 2px solid;
     padding-left: 4px;
     padding-right: 4px;
     padding-top: 2px;
     padding-bottom: 2px;
+  }
+
+  th,
+  td {
+    padding: 0.25em 0.5em 0.25em 1em;
+    vertical-align: text-top;
+    text-align: left;
+    
+  }
+  
+  thead tr td{
+    vertical-align: bottom;
+    background-color: #8dd49d;
+    border-bottom: 2px #000000;
+    color: rgb(0, 0, 0);
+  }
+  /* Fixed Headers */
+  
+  thead tr td{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border: #17384e;
+  }
+  body {
+    padding-bottom: 90vh;
   }
