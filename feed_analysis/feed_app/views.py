@@ -139,7 +139,25 @@ def feedProduction(request):
 
 
 def mpage(request,msg={}):
-	return render(request,'feed_app/mpage.html',{'msg':msg})
+	col = db['formula']
+	f = col.find({},{'_id':0})
+	d ={}
+	ind=0
+	for i in f:
+		d[ind] = i['ing']
+		ind+=1
+	lim = list(np.zeros(len(d[0])))
+	collection1 = db['stock']
+	stock = collection1.find_one({},{'_id':0})
+	l={}
+	ind=0
+	for i in stock:
+		print(i,lim[ind])
+		if float(stock[i])<float(lim[ind]):
+			l[i]=stock[i]
+		ind+=1
+	print(l)
+	return render(request,'feed_app/mpage.html',{'msg':l})
 
 def apage(request):
 	if request.method == "POST":
