@@ -103,7 +103,7 @@ def feedProduction(request):
 					lim[ind] = d[i][j]
 				ind+=1
 		for i in range(len(lim)):
-			lim[i]=lim[i]*7
+			lim[i]=int(lim[i])*7
 		# for i in formula:
 		# 	print(i,formula[i])
 		# 	print(i,s[i])
@@ -114,7 +114,7 @@ def feedProduction(request):
 		for i in s:
 			col1.update_one({'date time':dt_string},{"$set":{i:float(s[i])-float(int(q)*formula[i])}})
 		for i in s:
-			collection1.update_one({},{"$set":{i:float(s[i])-float(int(q)*formula[i])}})
+			collection1.update_one({},{"$set":{i:float(s[i])-float(int(q)*int(formula[i]))}})
 		stock = collection1.find_one({},{'_id':0})
 		l={}
 		ind=0

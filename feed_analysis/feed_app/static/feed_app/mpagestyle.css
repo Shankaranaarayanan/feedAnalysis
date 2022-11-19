@@ -79,3 +79,7 @@ font-weight: 700;}
 a:active { text-decoration: underline; 
 font-weight: 700;}
 
+
+.notif{
+    background-color: aquamarine;
+}
