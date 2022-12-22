@@ -10,9 +10,12 @@ import numpy as np
 import pymongo
 from datetime import datetime
 
-
-client = pymongo.MongoClient('localhost', 27017)
+client = pymongo.MongoClient("mongodb+srv://farmManager:5obCKstgynDIfOAq@farmcluster.qlmwjkl.mongodb.net/?retryWrites=true&w=majority")
 db = client['farm']
+
+
+# client = pymongo.MongoClient('localhost', 27017)
+# db = client['farm']
 
 # Create your views here.
 
@@ -46,7 +49,15 @@ def viewStockRecord(request):
 			# print(i)
 			s[ind][j]=i[j]
 		ind+=1
-	# print(s,l)
+	for i in s:
+		for j in range(len(l)):
+			try:
+				x=list(s[i].keys())[j]
+			except:print(s[i])
+			continue
+			print(s[i][x],l[j])
+	# for i in l:
+	# 	print(i)
 	return render(request,'feed_app/stockRecord.html',{'head':l,'body':s})
 
 
@@ -137,7 +148,7 @@ def feedProduction(request):
 		print(f)
 		return render(request,'feed_app/feedProduced.html',{'feeds':f})
 
-
+@login_required
 def mpage(request,msg={}):
 	col = db['formula']
 	f = col.find({},{'_id':0})
